@@ -1,11 +1,9 @@
 package Student;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.PostUpdate;
 import java.util.List;
 
 /**
@@ -13,21 +11,38 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(path = "api/v1/student")
+@RequestMapping(path = "student")
 public class StudentController {
 
     private final StudentService studentService;
 
-    @Autowired // dependency injection
+    @Autowired
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
-    @GetMapping//We're awaiting a response from our server
-    public List<Student> getStudents() {
+    @GetMapping
+    public List getStudents () {
 
         return studentService.getStudents();
 
+    }
+
+    @PostMapping
+    public void registerNewStudent(@RequestBody Student student) { // Request body gets mapped into a Student
+
+        studentService.addNewStudent(student);
+
+    }
+
+    @DeleteMapping(path = "{studentId}")
+    public void deleteStudent(@PathVariable("studentId")Long studentId) {
+        studentService.deleteStudent(studentId);
+    }
+
+    @PutMapping(path = "{studentId}")
+    public void updateStudent (@PathVariable("studentId") Long studentId, @RequestParam(required = false) String name, @RequestParam(required = false)String eMail) {
+        studentService.updateStudent(studentId, name, eMail);
     }
 
 }

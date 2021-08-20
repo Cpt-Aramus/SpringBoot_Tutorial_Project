@@ -1,5 +1,6 @@
 package Student;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 /** This class represents a Student with the following attributes:
@@ -9,17 +10,25 @@ import java.time.LocalDate;
  * Date of Birth/ dob (LocalDate)
  * Age (Integer)
  */
+
+@Entity
+@Table
 public class Student {
 
+    @Id
+    @SequenceGenerator(name = "student_seqence", sequenceName = "student_seqence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seqence")
 private long id;
 private String name;
 private String eMail;
 private LocalDate dob;
 private Integer age;
 
+    //Empty constructor
     public Student() {
     }
 
+    // Fixed ID
     public Student(long id, String name, String eMail, LocalDate dob, Integer age) {
         this.id = id;
         this.name = name;
@@ -28,6 +37,7 @@ private Integer age;
         this.age = age;
     }
 
+    // Generates random ID
     public Student(String name, String eMail, LocalDate dob, Integer age) {
         this.name = name;
         this.eMail = eMail;
@@ -81,10 +91,9 @@ private Integer age;
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", email='" + eMail + '\'' +
-                ", dob='" + dob + '\'' +
-                ", age='" + age + '\'' + '}';
-
+                ", eMail='" + eMail + '\'' +
+                ", dob=" + dob +
+                ", age=" + age +
+                '}';
     }
-
 }
