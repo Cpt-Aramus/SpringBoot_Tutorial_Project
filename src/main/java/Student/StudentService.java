@@ -1,6 +1,6 @@
 package Student;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * This class is responsible for managing the students and is part of the service layer
  */
-@Component // start of depencdency injection, this is an object that needs to instantiated
+@Service // start of depencdency injection, this is a class that needs to instantiated
 public class StudentService {
 
 
